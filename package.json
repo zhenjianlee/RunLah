@@ -11,10 +11,12 @@
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
+    "d3": "^7.8.5",
     "expo": "^50.0.0",
     "expo-sensors": "~12.9.1",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
+    "react-gauge-chart": "^0.4.1",
     "react-native": "0.73.2",
     "react-native-paper": "^5.12.3",
     "react-native-progress": "^5.0.1"

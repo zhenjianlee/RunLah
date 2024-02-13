@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { DeviceMotion } from 'expo-sensors';
 
-export default function ChellengeScreen() {
+export default function SettingsScreen() {
 
  
 

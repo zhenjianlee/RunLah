@@ -6,13 +6,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import cafe from "./assets/ct.jpg";
 import mona from "./assets/mn.jpg";
 
-import { PaperProvider } from "react-native-paper";
-
 //components
-import HomeScreen from "./components/HomeScreen";
-import ChallengeScreen from "./components/ChallengeScreen";
-import LoginScreen from "./components/LoginScreen";
-import DeviceMotionSettingsScreen from "./components/DeviceMotionSettingsScreen";
+import HomeScreen from "./screen/HomeScreen";
+import SettingsScreen from "./screen/SettingsScreen";
+import DeviceMotionScreen from "./screen/DeviceMotionScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -20,7 +17,6 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <>
-      <PaperProvider>
         <NavigationContainer>
           <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -50,19 +46,14 @@ export default function App() {
             />
             <Tab.Screen
               name="Challenge"
-              component={ChallengeScreen}
-            />
-            <Tab.Screen
-              name="Login"
-              component={LoginScreen}
+              component={DeviceMotionScreen}
             />
             <Tab.Screen
               name="Settings"
-              component={DeviceMotionSettingsScreen}
+              component={SettingsScreen}
             />
           </Tab.Navigator>
         </NavigationContainer>
-      </PaperProvider>
     </>
   );
 }
