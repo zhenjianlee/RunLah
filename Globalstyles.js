@@ -6,7 +6,7 @@ export default styles = StyleSheet.create({
       paddingTop: StatusBar.currentHeight,
     },
     scrollViewRun: {
-      backgroundColor: "green",
+      backgroundColor: "pink",
       marginHorizontal: 20,
     },
     scrollViewStop: {

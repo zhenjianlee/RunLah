@@ -67,8 +67,7 @@ export default function DeviceMotionScreen() {
 
   //timerhooks
   const [runTime, setRunTime] = useState(0);
-  const tiktok= useRef();
-
+  const tiktok = useRef();
 
   // SDK logics
   const getPermission = async () => {
@@ -125,19 +124,25 @@ export default function DeviceMotionScreen() {
     if (measuredAcc <= 0.15) {
       setTimeout(() => {
         setMotion(false);
-        clearInterval(tiktok.current);
-        setRunTime(0);
       }, 3000);
     } else {
       setMotion(true);
-      setInterval(() => {
-        setRunTime((prevTime) => prevTime + 1);
-      }, 1000);
-      tiktok.current = setInterval(()=>{setRunTime((time)=>time+1)},1000)
     }
-    return()=> clearInterval(tiktok.current);
   }, [data.acceleration.x, data.acceleration.y, data.acceleration.z]);
 
+  useEffect(() => {
+    if (motion) {
+      tiktok.current = setInterval(() => {
+        setRunTime((time) => time + 1);
+      }, 1000);
+      console.log("runtime="+runTime);
+    }
+    else{
+      clearInterval(tiktok.current);
+      setRunTime(0);
+    }
+    return () => clearInterval(tiktok.current);
+  }, [motion]);
 
   return (
     <SafeAreaView style={styles.viewcontainer}>
@@ -146,7 +151,7 @@ export default function DeviceMotionScreen() {
           currAcc={currAcc}
           maxAcc={maxAcc}
           motion={motion}
-          runtime={runTime}
+          runTime={runTime}
         />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
