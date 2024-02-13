@@ -135,11 +135,11 @@ export default function DeviceMotionScreen() {
       tiktok.current = setInterval(() => {
         setRunTime((time) => time + 1);
       }, 1000);
-      console.log("runtime="+runTime);
-    }
-    else{
+      console.log("runtime=" + runTime);
+    } else {
       clearInterval(tiktok.current);
       setRunTime(0);
+      setMaxAcc(0);
     }
     return () => clearInterval(tiktok.current);
   }, [motion]);
@@ -147,22 +147,7 @@ export default function DeviceMotionScreen() {
   return (
     <SafeAreaView style={styles.viewcontainer}>
       <ScrollView style={motion ? styles.scrollViewRun : styles.scrollViewStop}>
-        <SpeedGauge
-          currAcc={currAcc}
-          maxAcc={maxAcc}
-          motion={motion}
-          runTime={runTime}
-        />
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            onPress={() => setShow(!show)}
-            style={styles.button}
-          >
-            <Text>Toggle Settings</Text>
-          </TouchableOpacity>
-        </View>
-
-        {show && (
+        {show == true ? (
           <DeviceMotionData
             data={data}
             speed={speed}
@@ -171,7 +156,23 @@ export default function DeviceMotionScreen() {
             currSpeed={currSpeed}
             handleCheck={handleCheck}
           />
+        ) : (
+          <SpeedGauge
+            currAcc={currAcc}
+            maxAcc={maxAcc}
+            motion={motion}
+            runTime={runTime}
+          />
         )}
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => setShow(!show)}
+            style={styles.button}
+          >
+            <Text>Toggle View</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
