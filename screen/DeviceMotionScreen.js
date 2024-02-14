@@ -15,6 +15,7 @@ import styles from "../Globalstyles";
 
 import DeviceMotionData from "../component/DeviceMotionData";
 import SpeedGauge from "../component/SpeedGauge";
+import Linegraph from "../component/Linegraph";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -54,18 +55,28 @@ export default function DeviceMotionScreen() {
   };
 
   //useState hooks
+
+  //SDK operation
   const [data, setData] = useState(initialData);
   const [permission, setPermission] = useState(null);
   const [speed, setSpeed] = useState(1000);
   const [currSpeed, setCurrSpeed] = useState(1000);
+
+  //show settings
   const [show, setShow] = useState(false);
+
+  //data
   const [currAcc, setcurrAcc] = useState(0);
   const [maxAcc, setMaxAcc] = useState(0);
   const [motion, setMotion] = useState(false);
 
   //timerhooks
   const [runTime, setRunTime] = useState(0);
-  const tiktok = useRef();
+  const timerOneSec = useRef();
+  const timerGraph = useRef();
+
+  //linechart
+  const [arrayAcc, setArrayAcc] = useState([0]);
 
   // SDK logics
   const getPermission = async () => {
@@ -110,11 +121,13 @@ export default function DeviceMotionScreen() {
 
   // app logic
   useEffect(() => {
+    if (data.acceleration.x !=null && data.acceleration.y != null && data.acceleration.x !=null){
     const measuredAcc = Math.max(
       Math.abs(data.acceleration.x),
       Math.abs(data.acceleration.y),
       Math.abs(data.acceleration.z)
     );
+    
     setcurrAcc(measuredAcc);
     if (measuredAcc > maxAcc) {
       setMaxAcc(measuredAcc);
@@ -122,24 +135,30 @@ export default function DeviceMotionScreen() {
     if (measuredAcc <= 0.15) {
       setTimeout(() => {
         setMotion(false);
-      }, 3000);
+      }, 4000);
     } else {
       setMotion(true);
+    }
     }
   }, [data.acceleration.x, data.acceleration.y, data.acceleration.z]);
 
   useEffect(() => {
     if (motion) {
-      tiktok.current = setInterval(() => {
+      timerOneSec.current = setInterval(() => {
         setRunTime((time) => time + 1);
       }, 1000);
-      console.log("runtime=" + runTime);
+      timerGraph.current = setInterval(() => {
+        console.log("currAcc="+currAcc + " x=" + data.acceleration.x)
+        setArrayAcc((array)=>[...array,currAcc]);
+      }, 5000);
     } else {
-      clearInterval(tiktok.current);
+      clearInterval(timerOneSec.current);
+      clearInterval(timerGraph.current);
       setRunTime(0);
       setMaxAcc(0);
+      setArrayAcc([0]);
     }
-    return () => clearInterval(tiktok.current);
+    return () => clearInterval(timerOneSec.current, timerGraph.current,currAcc);
   }, [motion]);
 
   return (
@@ -173,6 +192,8 @@ export default function DeviceMotionScreen() {
             <Text>Toggle View</Text>
           </TouchableOpacity>
         </View>
+
+        <Linegraph arrayAcc={arrayAcc} />
       </ScrollView>
     </SafeAreaView>
   );

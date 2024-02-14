@@ -3,9 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import cafe from "./assets/ct.jpg";
-import mona from "./assets/mn.jpg";
-
 //components
 import HomeScreen from "./screen/HomeScreen";
 import SettingsScreen from "./screen/SettingsScreen";

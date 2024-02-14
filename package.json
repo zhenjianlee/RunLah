@@ -11,13 +11,15 @@
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
+    "@types/react": "~18.2.45",
     "expo": "^50.0.0",
     "expo-sensors": "~12.9.1",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.2",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-progress": "^5.0.1",
-    "@types/react": "~18.2.45"
+    "react-native-svg": "^14.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

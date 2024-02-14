@@ -1,14 +1,6 @@
-import { View, Image, StyleSheet} from "react-native";
-import {
-    Text,
-    TextInput,
-    RadioButton,
-    Button,
-    Dialog,
-    Portal,
-  } from "react-native-paper";
-
+import { View, Image, StyleSheet, Text} from "react-native";
 import starry from "../assets/sn.jpg";
+
 
 function HomeScreen() {
     return (
