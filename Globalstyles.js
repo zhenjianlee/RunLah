@@ -13,6 +13,10 @@ export default styles = StyleSheet.create({
       backgroundColor: "white",
       marginHorizontal: 20,
     },
+    speedcontainer:{
+      justifyContent:'center',
+      alignItems:'center',
+    },
     input: {
       height: 40,
       margin: 12,

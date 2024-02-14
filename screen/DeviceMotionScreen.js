@@ -11,12 +11,10 @@ import {
 } from "react-native";
 import { DeviceMotion } from "expo-sensors";
 import { LogBox } from "react-native";
-import { Circle } from "react-native-progress";
 import styles from "../Globalstyles";
 
 import DeviceMotionData from "../component/DeviceMotionData";
 import SpeedGauge from "../component/SpeedGauge";
-import { interval, max } from "d3";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -162,6 +160,8 @@ export default function DeviceMotionScreen() {
             maxAcc={maxAcc}
             motion={motion}
             runTime={runTime}
+            setRunTime={setRunTime}
+            setMaxAcc={setMaxAcc}
           />
         )}
 
