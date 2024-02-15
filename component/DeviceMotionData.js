@@ -7,8 +7,6 @@ import {
   StatusBar,
 } from "react-native";
 
-import styles from "../Globalstyles";
-
 export default function DeviceMotionData({
   data,
   speed,
@@ -18,7 +16,7 @@ export default function DeviceMotionData({
   handleCheck
 }) {
   return (
-    <View id="settings">
+    <View style={styles.outerContainer}>
       <Text style={styles.heading}>Acceleration (m/s^2)</Text>
       {data.acceleration.x && data.acceleration.x !=null ? (
         <Text style={styles.text}>x: {data.acceleration.x}</Text>
@@ -79,27 +77,75 @@ export default function DeviceMotionData({
         <Text style={styles.text}>gamma: {data.rotationRate.gamma}</Text>
       ) : null}
 
-      <View>
-        <Text style={styles.text}>Speed: {currSpeed}</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.text}>Sensor sampling interval: {currSpeed}</Text>
         <TextInput
           style={styles.input}
           value={speed}
           keyboardType="numeric"
           onChangeText={(text) => setSpeed(text)}
+          placeholder="Key sensor interval"
         />
       </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleCheck} style={styles.button}>
-          <Text>Check</Text>
+          <Text>Console Log</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={changeSpeed}
           style={[styles.button, styles.middleButton]}
         >
-          <Text>Change Update Speed</Text>
+          <Text>Update sensor interval</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  outerContainer:{
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+  },
+  heading: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  text: {
+    textAlign: "center",
+  },
+  inputContainer:{
+    alignItems:'center',
+    justifyContent:'center',
+
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    marginTop: 15,
+  },
+  button: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#eee",
+    padding: 10,
+  },
+  middleButton: {
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: "#ccc",
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    width: 200,
+    borderWidth: 1,
+    padding: 10,
+  },
+})

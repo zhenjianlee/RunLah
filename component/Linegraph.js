@@ -1,12 +1,12 @@
 import { LineChart, ProgressChart } from "react-native-chart-kit";
 
-import { View, StyleSheet, StatusBar, Dimensions } from "react-native";
+import { View, StyleSheet, StatusBar, Dimensions, Text } from "react-native";
 
 const chartConfig = {
   backgroundColor: "#e26a00",
   backgroundGradientFrom: "#fb8c00",
   backgroundGradientTo: "#ffa726",
-  decimalPlaces: 2, // optional, defaults to 2dp
+  decimalPlaces: 1, 
   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   style: {
@@ -27,6 +27,7 @@ const graphStyle={
 export default function Linegraph({ arrayAcc }) {
   return (
     <View style={styles.viewcontainer}>
+      <Text>Acceleration Logger</Text>
       <LineChart
         data={{
             labels: [],

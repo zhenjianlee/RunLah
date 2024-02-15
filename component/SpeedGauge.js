@@ -19,8 +19,8 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
 
   const showalertWin = () => {
     Alert.alert(
-      "You Won! Congratulations!!",
-      `It was very difficult, but you kept running for ${runTime} seconds at the maxium speed of ${maxAcc.toFixed(2)} ms^-2.\n\nFantastic , keep it up!`,
+      "Walaoeh! Not bad sia ...",
+      `It was very difficult, but you kept running for ${runTime/60} minutes & ${runTime%60} seconds at the max speed of ${maxAcc.toFixed(2)} ms^-2.\n\nFantastic , keep it up and please tekan yourself everday!`,
       [
         {
           text: "Back",
@@ -54,13 +54,13 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
         />
         <Text>
           {currAcc <= 1
-            ? "Why did you stop? Try again!"
+            ? "Hello! Are you sleeping? Keep running!"
             : currAcc <= 5
             ? "You have to go faster!"
             : currAcc <= 10
             ? "Ok! Keep it up!"
             : currAcc <= 15
-            ? " That's fast!"
+            ? "Eh, not bad ah, that's fast!"
             : "Awesome work!"}{" "}
         </Text>
       </View>
@@ -95,6 +95,9 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
         borderRadius={3}
         height={5}
         width={300}
+        color={runTime/duration <= 0.1? "rgba(255,0,0,1)"
+                : runTime/duration <= 0.5? "rgba(0,0,255,1)"
+                :"rgba(34,139,34,1)"}
       />
 
       <View style={styles.innercontainer}>
@@ -107,6 +110,9 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
           borderWidth={3}
           animated={true}
           showsText={true}
+          color={currAcc<= 0.2? "rgba(255,0,0,1)"
+                : currAcc <= 10? "rgba(0,0,255,1)"
+                :"rgba(34,139,34,1)"}
         />
       </View>
 
@@ -131,6 +137,9 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
           borderWidth={3}
           animated={true}
           showsText={true}
+          color={currAcc<= 0.2? "rgba(255,0,0,1)"
+            : currAcc <= 10? "rgba(0,0,255,1)"
+            :"rgba(34,139,34,1)"}
         />
       </View>
 
@@ -138,15 +147,15 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
         <TextInput
           style={styles.input}
           value={input}
-          placeholder={input}
+          placeholder={"Key in runtime (min)"}
           keyboardType="numeric"
           onChangeText={(text) => setInput(text)}
         />
         <TouchableOpacity
           onPress={changeDuration}
-          style={[styles.button, styles.middleButton]}
+          style={styles.button}
         >
-          <Text>Set runtime (minutes)</Text>
+          <Text style={styles.buttontext}>Set runtime(min)</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -170,6 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
+    alignItems:'center',
     paddingHorizontal: 5,
   },
   wordcontainer: {
@@ -194,16 +204,21 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
-    width: 100,
+    width: 150,
     borderWidth: 1,
     padding: 10,
   },
   button: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#eee",
-    padding: 3,
+    backgroundColor:'blue',
+    borderRadius:5,
+    padding:5,
+    height:45,
+  },
+  buttontext: {
+    color: 'white',
+    fontWeight:'bold',
   },
   middleButton: {
     borderLeftWidth: 1,

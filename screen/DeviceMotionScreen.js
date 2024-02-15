@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { DeviceMotion } from "expo-sensors";
 import { LogBox } from "react-native";
-import styles from "../Globalstyles";
 
+//import components
 import DeviceMotionData from "../component/DeviceMotionData";
 import SpeedGauge from "../component/SpeedGauge";
 import Linegraph from "../component/Linegraph";
@@ -75,7 +75,7 @@ export default function DeviceMotionScreen() {
   const timerOneSec = useRef();
   const timerGraph = useRef();
 
-  //linechart
+  //linechart data
   const [arrayAcc, setArrayAcc] = useState([0]);
 
   // SDK logics
@@ -119,7 +119,7 @@ export default function DeviceMotionScreen() {
     console.log("Check orientation=" + data.orientation);
   };
 
-  // app logic
+  // app logics
   useEffect(() => {
     if (data.acceleration.x !=null && data.acceleration.y != null && data.acceleration.x !=null){
     const measuredAcc = Math.max(
@@ -127,7 +127,7 @@ export default function DeviceMotionScreen() {
       Math.abs(data.acceleration.y),
       Math.abs(data.acceleration.z)
     );
-    
+
     setcurrAcc(measuredAcc);
     if (measuredAcc > maxAcc) {
       setMaxAcc(measuredAcc);
@@ -183,7 +183,7 @@ export default function DeviceMotionScreen() {
             setMaxAcc={setMaxAcc}
           />
         )}
-
+        {!show && <Linegraph arrayAcc={arrayAcc} />}
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => setShow(!show)}
@@ -193,8 +193,39 @@ export default function DeviceMotionScreen() {
           </TouchableOpacity>
         </View>
 
-        <Linegraph arrayAcc={arrayAcc} />
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+styles = StyleSheet.create({
+    viewcontainer: {
+      flex: 1,
+      paddingTop: StatusBar.currentHeight,
+    },
+    scrollViewRun: {
+      backgroundColor: "white",
+      marginHorizontal: 20,
+    },
+    scrollViewStop: {
+      backgroundColor: "pink",
+      marginHorizontal: 20,
+    },
+    buttonContainer: {
+      flexDirection: "row",
+      alignItems: "stretch",
+      marginTop: 15,
+    },
+    button: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#eee",
+      padding: 10,
+    },
+    middleButton: {
+      borderLeftWidth: 1,
+      borderRightWidth: 1,
+      borderColor: "#ccc",
+    },
+  });
