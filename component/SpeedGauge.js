@@ -51,6 +51,17 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
               ? "car-sport"
               : "rocket"
           }
+          color={
+            currAcc <= 1
+              ? "red"
+              : currAcc <= 5
+              ? "orange"
+              : currAcc <= 10
+              ? "blue"
+              : currAcc <= 15
+              ? "blue"
+              : "green"
+          }
         />
         <Text>
           {currAcc <= 1

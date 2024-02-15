@@ -73,7 +73,8 @@ export default function DeviceMotionScreen() {
   //timerhooks
   const [runTime, setRunTime] = useState(0);
   const timerOneSec = useRef();
-  const timerGraph = useRef();
+  //~ timerGraph cannot be used here due to too many signals
+  // const timerGraph = useRef();
 
   //linechart data
   const [arrayAcc, setArrayAcc] = useState([0]);
@@ -121,49 +122,60 @@ export default function DeviceMotionScreen() {
 
   // app logics
   useEffect(() => {
-    if (data.acceleration.x !=null && data.acceleration.y != null && data.acceleration.x !=null){
-    const measuredAcc = Math.max(
-      Math.abs(data.acceleration.x),
-      Math.abs(data.acceleration.y),
-      Math.abs(data.acceleration.z)
-    );
-
-    setcurrAcc(measuredAcc);
-    if (measuredAcc > maxAcc) {
-      setMaxAcc(measuredAcc);
+    if (
+      data.acceleration.x != null &&
+      data.acceleration.y != null &&
+      data.acceleration.x != null
+    ) {
+      const measuredAcc = Math.max(
+        Math.abs(data.acceleration.x),
+        Math.abs(data.acceleration.y),
+        Math.abs(data.acceleration.z)
+      );
+      setcurrAcc(measuredAcc);
+      if (measuredAcc > maxAcc) {
+        setMaxAcc(measuredAcc);
+      }
+      if (measuredAcc <= 0.15) {
+        setTimeout(() => {
+          setMotion(false);
+        }, 4000);
+        //~ timerGraph cannot be used here due to too many signals
+        // clearInterval(timerGraph.current);
+      } else {
+        setMotion(true);
+        // console.log("measuredAcc is above 0.15 "+ measuredAcc );
+        //~ timerGraph cannot be used here due to too many signals
+        // timerGraph.current = setInterval(() => {
+        //   console.log("measuredAcc=" + measuredAcc);
+        //   setArrayAcc((array) => [...array, measuredAcc]);
+        // }, 5000);
+        setArrayAcc((array) => [...array, measuredAcc]);
+      }
     }
-    if (measuredAcc <= 0.15) {
-      setTimeout(() => {
-        setMotion(false);
-      }, 4000);
-    } else {
-      setMotion(true);
-    }
-    }
-  }, [data.acceleration.x, data.acceleration.y, data.acceleration.z]);
+    //~ timerGraph cannot be used here due to too many signals
+    // return () =>
+    //   clearInterval(timerGraph.current);
+  }, [data.acceleration]);
 
   useEffect(() => {
     if (motion) {
       timerOneSec.current = setInterval(() => {
         setRunTime((time) => time + 1);
       }, 1000);
-      timerGraph.current = setInterval(() => {
-        console.log("currAcc="+currAcc + " x=" + data.acceleration.x)
-        setArrayAcc((array)=>[...array,currAcc]);
-      }, 5000);
     } else {
       clearInterval(timerOneSec.current);
-      clearInterval(timerGraph.current);
       setRunTime(0);
       setMaxAcc(0);
-      setArrayAcc([0]);
     }
-    return () => clearInterval(timerOneSec.current, timerGraph.current,currAcc);
+    return () => clearInterval(timerOneSec.current);
   }, [motion]);
 
   return (
     <SafeAreaView style={styles.viewcontainer}>
-      <ScrollView style={motion ? styles.scrollViewRun : styles.scrollViewStop}>
+      <ScrollView
+        style={currAcc >= 1 ? styles.scrollViewRun : styles.scrollViewStop}
+      >
         {show == true ? (
           <DeviceMotionData
             data={data}
@@ -183,7 +195,7 @@ export default function DeviceMotionScreen() {
             setMaxAcc={setMaxAcc}
           />
         )}
-        {!show && <Linegraph arrayAcc={arrayAcc} />}
+        {!show && <Linegraph arrayAcc={arrayAcc} setArrayAcc={setArrayAcc} />}
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => setShow(!show)}
@@ -192,40 +204,39 @@ export default function DeviceMotionScreen() {
             <Text>Toggle View</Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 styles = StyleSheet.create({
-    viewcontainer: {
-      flex: 1,
-      paddingTop: StatusBar.currentHeight,
-    },
-    scrollViewRun: {
-      backgroundColor: "white",
-      marginHorizontal: 20,
-    },
-    scrollViewStop: {
-      backgroundColor: "pink",
-      marginHorizontal: 20,
-    },
-    buttonContainer: {
-      flexDirection: "row",
-      alignItems: "stretch",
-      marginTop: 15,
-    },
-    button: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#eee",
-      padding: 10,
-    },
-    middleButton: {
-      borderLeftWidth: 1,
-      borderRightWidth: 1,
-      borderColor: "#ccc",
-    },
-  });
+  viewcontainer: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+  },
+  scrollViewRun: {
+    backgroundColor: "#abf7b1",
+    borderRadius: 5,
+  },
+  scrollViewStop: {
+    backgroundColor: "white",
+    borderRadius: 5,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    marginTop: 15,
+  },
+  button: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#eee",
+    padding: 10,
+  },
+  middleButton: {
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: "#ccc",
+  },
+});
