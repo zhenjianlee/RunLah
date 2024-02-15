@@ -17,11 +17,13 @@ npx expo install expo-sensors
 ```
 npm install react-native-chart-kit 
 ```
-```
-npm install --save react-native-svg-charts
-```
+
 ```
 npm install react-native-progress --save
+```
+Note:- made and error, and have corrected as below
+```
+npm install react-native-svg
 ```
 
 package.json file
@@ -47,6 +49,9 @@ https://github.com/oblador/react-native-progress
 
 Line Graph
 https://github.com/indiespirit/react-native-chart-kit
+
+SVG - not actually in use
+https://github.com/software-mansion/react-native-svg
 
 ## Fixed Persistent Bug - Please alert me if you see this!
 
