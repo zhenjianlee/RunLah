@@ -20,7 +20,7 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
   const showalertWin = () => {
     Alert.alert(
       "Walaoeh! Not bad sia ...",
-      `It was very difficult, but you kept running for ${runTime/60} minutes & ${runTime%60} seconds at the max speed of ${maxAcc.toFixed(2)} ms^-2.\n\nFantastic , keep it up and please tekan yourself everday!`,
+      `It was very difficult, but you kept running for ${Math.floor(runTime/60)} minutes & ${runTime%60} seconds at the max speed of ${maxAcc.toFixed(2)} ms^-2.\n\nFantastic , keep it up and please tekan yourself everday!`,
       [
         {
           text: "Back",

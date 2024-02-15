@@ -26,6 +26,23 @@ Note:- made and error, and have corrected as below
 npm install react-native-svg
 ```
 
+app.json
+```
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Allow $(PRODUCT_NAME) to access your device motion."
+        }
+      ]
+    ]
+  }
+}
+
+```
+
 package.json file
 ```
 "@react-navigation/bottom-tabs": "^6.5.11",
