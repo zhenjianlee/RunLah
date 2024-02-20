@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   StatusBar,
+  Alert
 } from "react-native";
 import { DeviceMotion } from "expo-sensors";
 import { LogBox } from "react-native";
@@ -109,8 +110,13 @@ export default function DeviceMotionScreen() {
   }, []);
 
   const changeSpeed = () => {
-    DeviceMotion.setUpdateInterval(parseInt(speed));
-    setCurrSpeed(speed);
+    const userInputSpeed = parseInt(speed);
+    if (userInputSpeed >= 16 && userInputSpeed <= 1500){
+      DeviceMotion.setUpdateInterval(userInputSpeed);
+      setCurrSpeed(speed);
+    }else{
+      showalertWrongInputSpeed();
+    }
   };
 
   const handleCheck = () => {
@@ -170,6 +176,24 @@ export default function DeviceMotionScreen() {
     }
     return () => clearInterval(timerOneSec.current);
   }, [motion]);
+
+  const showalertWrongInputSpeed = () => {
+    Alert.alert(
+      "Wrong Input",
+      `You have keyed in ${speed} which is not valid. Please key in a valid value between 16 to 1500 ms`,
+      [
+        {
+          text: "Back",
+          onPress: () => {},
+          style: "cancel",
+        },
+      ],
+      // {
+      //   cancelable: true,
+      //   onDismiss: () => Alert.alert("Good job!"),
+      // }
+    );
+  };
 
   return (
     <SafeAreaView style={styles.viewcontainer}>

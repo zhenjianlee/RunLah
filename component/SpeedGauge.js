@@ -8,7 +8,14 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
   const [input, setInput] = useState("");
 
   const changeDuration = () => {
-    setDuration(parseFloat(input) * 60);
+    const userInputDuration = parseFloat(input) * 60;
+
+    if (userInputDuration > 10 ){
+      setDuration(userInputDuration);
+    }
+    else{
+      showalertWrongInput();
+    }
   };
 
   useEffect(() => {
@@ -25,6 +32,24 @@ export default function SpeedGauge({ currAcc, maxAcc, motion, runTime,setRunTime
         {
           text: "Back",
           onPress: () => {setRunTime(0);setMaxAcc(0)},
+          style: "cancel",
+        },
+      ],
+      // {
+      //   cancelable: true,
+      //   onDismiss: () => Alert.alert("Good job!"),
+      // }
+    );
+  };
+
+  const showalertWrongInput = () => {
+    Alert.alert(
+      "Wrong Input",
+      `You have keyed in ${input} which is not valid. Please key in a valid value`,
+      [
+        {
+          text: "Back",
+          onPress: () => {},
           style: "cancel",
         },
       ],

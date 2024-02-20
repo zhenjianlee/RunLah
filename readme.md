@@ -1,8 +1,25 @@
 # RunLah
 
-This feature was developed to complement the Walk Lah exercise app. It uses the Device Motion SDK to keep track of movement to help the user stay motivated in achieving his or her target. The movement is logged via react chart kits. The user can set the target run time.
+This feature was developed to complement the Walk Lah exercise app. It uses the Device Motion SDK to keep track of movement to help the user stay motivated in achieving his or her target. 
 
-![Alt text](./assets/runlah.gif)
+The movement is logged via react chart kits. The user can set the target run time.
+
+
+## Play the video below to see how it looks like
+
+<video controls src="assets/runlahvid.mp4" title="Title"  width="350" height="auto" autoplay loop muted></video>
+
+
+## Screen layout - There are 5 stages (of grief) for the user to clear
+
+<img src="assets/1.jpg"  width="350" height="auto"></img>
+<img src="assets/2.jpg"  width="350" height="auto"></img>
+<img src="assets/3.jpg"  width="350" height="auto"></img>
+<img src="assets/4.jpg"  width="350" height="auto"></img>
+<img src="assets/5.jpg"  width="350" height="auto"></img>
+<img src="assets/win.jpg"  width="350" height="auto"></img>
+<img src="assets/full.jpg"  width="350" height="auto"></img>
+
 
 If the user stops movement, all progress will be reset within a grace period of 4 seconds.
 
@@ -10,7 +27,18 @@ The working elements are contained within DeviceMotionScreen.js. It has 3 main c
 
 The HomeScreen and SettingsScreen is included and can be further expanded as a standalone app in the future.
 
-## Dependencies
+## Installation notes
+
+If you would like to try this on your device, just fork this repo and clone it to your local repo. Do a 'npm install ' to get all dependencies.
+
+You can use this feature for your own exercise app! Please don't forget to give me a star on my repo.
+
+This feature was also used to combine with my SCTP buddies for our group project.
+
+Thanks.
+
+### Below are just some notes on how i created this app from scratch.
+
 ```
 npx expo install expo-sensors
 ```
@@ -57,7 +85,7 @@ package.json file
 "react-native-progress": "^5.0.1",
 "react-native-svg": "^14.1.0"
 ```
-## References for dependencies
+### References for dependencies
 Device Motion SDK
 https://docs.expo.dev/versions/latest/sdk/devicemotion/
 
@@ -70,7 +98,7 @@ https://github.com/indiespirit/react-native-chart-kit
 SVG - not actually in use
 https://github.com/software-mansion/react-native-svg
 
-## Fixed Persistent Bug - Please alert me if you see this!
+### Fixed Persistent Bug - Please alert me if you see this!
 
 During startup the device motion sensor may be undefined. I have included null checks to counteract this. In my useEffect i also do not directly monitor data.acceleration.x in the dependency array, instead I monitor data.accelearation as a whole.
 
