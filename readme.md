@@ -7,7 +7,7 @@ The movement is logged via react chart kits. The user can set the target run tim
 
 ## Play the video below to see how it looks like
 
-<video controls src="assets/runlahvid.mp4" title="Title"  width="350" height="auto" autoplay loop muted></video>
+<video controls src="assets/runlahvidCompressed.mp4" title="Title"  width="350" height="auto" autoplay loop muted></video>
 
 
 ## Screen layout - There are 5 stages (of grief) for the user to clear
